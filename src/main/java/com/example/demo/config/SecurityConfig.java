@@ -37,6 +37,10 @@ public class SecurityConfig {
         	.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/api/register", "/api/login").permitAll()
+                    .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                    
+                    // Users with either 'ADMIN' or 'EMPLOYEE' can access /api/employee/**
+                    .requestMatchers("/api/employee/**").hasAnyRole("ADMIN", "EMPLOYEE")
                     .anyRequest().authenticated())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

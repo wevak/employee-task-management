@@ -33,7 +33,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String registerUser(@RequestBody User user) {
-    	user.setRole("EMPLOYEE");
+    	user.setRole("ROLE_EMPLOYEE");
         user.setPassword(encoder.encode(user.getPassword()));
         repository.save(user);
         return "User registered successfully";
