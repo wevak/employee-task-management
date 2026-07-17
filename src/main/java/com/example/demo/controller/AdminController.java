@@ -79,4 +79,43 @@ public class AdminController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
+	
+	/**
+	 * Dashboard Stats
+	 */
+	@GetMapping("/total-employees")
+	public ResponseEntity<?> totalEmplyeesCount() {
+		try {			
+			return ResponseEntity.ok(userService.getTotalEmployeesCount());
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
+	
+	@GetMapping("/total-tasks")
+	public ResponseEntity<?> totalTasksCount() {
+		try {			
+			return ResponseEntity.ok(taskService.totalTasksCount());
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
+	
+	@GetMapping("/total-pending-tasks")
+	public ResponseEntity<?> totalPendingTasksCount() {
+		try {			
+			return ResponseEntity.ok(taskService.totalPendingTasks());
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
+	
+	@GetMapping("/total-completed-tasks")
+	public ResponseEntity<?> totalCompletedTasksCount() {
+		try {			
+			return ResponseEntity.ok(taskService.totalCompletedTasks());
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
 }

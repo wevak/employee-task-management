@@ -29,5 +29,11 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteById(id);
 		return "User Successfully Deleted with ID " + id;
 	}
+
+	@Override
+	public long getTotalEmployeesCount() {
+		return userRepository.countByRole("ROLE_EMPLOYEE");
+	}
+	
 	
 }

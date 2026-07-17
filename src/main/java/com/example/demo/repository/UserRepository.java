@@ -6,4 +6,6 @@ import com.example.demo.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByUsername(String username);
+	
+	long countByRole(String role);
 }

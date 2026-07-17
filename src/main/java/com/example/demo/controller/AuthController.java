@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.AuthenticationRequestDTO;
+import com.example.demo.dto.AuthenticationResponseDTO;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.CustomUserDetailsService;
@@ -40,10 +42,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody AuthenticationRequestDTO request) {
+    public ResponseEntity<?> loginUser(@RequestBody AuthenticationRequestDTO request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-        return jwtUtil.generateToken(userDetails);
+//        return jwtUtil.generateToken(userDetails);
+        String jwt = jwtUtil.generateToken(userDetails);
+        
+        User user = repository.findByUsername(request.getUsername());
+        
+        return ResponseEntity.ok(new AuthenticationResponseDTO(jwt, userDetails.getUsername(), user.getEmail(), user.getRole()));
     }
 
     @GetMapping("/hello")
