@@ -9,6 +9,8 @@ public interface UserService {
 	
 	User getSpecificUser(Long id);
 	
+	User userUpdation(Long id, User user);
+	
 	String specificUserDeletion(Long id);
 	
 	long getTotalEmployeesCount();

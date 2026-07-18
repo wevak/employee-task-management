@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,6 +52,17 @@ public class AdminController {
 		try {
 			return ResponseEntity.ok(userService.specificUserDeletion(id));
 		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
+	
+	@PutMapping("/user-updation/{id}")
+	public ResponseEntity<?> userUpdation(@PathVariable Long id, @RequestBody User user) {
+		try {
+			return ResponseEntity.ok(userService.userUpdation(id, user));
+		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
@@ -77,6 +89,17 @@ public class AdminController {
 			
 			return ResponseEntity.status(HttpStatus.CREATED).body(taskService.taskCreation(task));
 		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
+	
+	@DeleteMapping("/task-deletion/{id}")
+	public ResponseEntity<?> taskDeletion(@PathVariable Long id) {
+		try {
+			return ResponseEntity.ok(taskService.taskDeletion(id));
+		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}

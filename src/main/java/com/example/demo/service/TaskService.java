@@ -13,6 +13,8 @@ public interface TaskService {
 	
 	Task taskCreation(Task task);
 	
+	String taskDeletion(Long id);
+	
 	Long totalTasksCount();
 	
 	Long totalPendingTasks();
